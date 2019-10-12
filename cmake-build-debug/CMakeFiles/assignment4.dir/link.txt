@@ -1,0 +1,1 @@
+/usr/bin/cc -g   CMakeFiles/assignment4.dir/ober_withtime.c.o  -o assignment4 -pthread 

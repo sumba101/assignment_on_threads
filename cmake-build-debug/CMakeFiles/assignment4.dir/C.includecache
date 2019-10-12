@@ -1,0 +1,20 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/home/spawnfire/OS/assignment4/ober_withtime.c
+semaphore.h
+-
+stdio.h
+-
+unistd.h
+-
+stdbool.h
+-
+pthread.h
+-
+

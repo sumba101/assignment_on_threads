@@ -1,0 +1,3 @@
+/home/spawnfire/OS/assignment4/cmake-build-debug/CMakeFiles/rebuild_cache.dir
+/home/spawnfire/OS/assignment4/cmake-build-debug/CMakeFiles/assignment4.dir
+/home/spawnfire/OS/assignment4/cmake-build-debug/CMakeFiles/edit_cache.dir
