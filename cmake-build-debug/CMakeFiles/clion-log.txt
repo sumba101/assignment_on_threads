@@ -1,4 +1,1 @@
-/home/spawnfire/clion-2019.2.1/bin/cmake/linux/bin/cmake -DCMAKE_BUILD_TYPE=Debug -G "CodeBlocks - Unix Makefiles" /home/spawnfire/OS/assignment4
--- Configuring done
--- Generating done
--- Build files have been written to: /home/spawnfire/OS/assignment4/cmake-build-debug
+CMakeLists.txt not found in /home/spawnfire/OS/assignment4 Select CMakeLists.txt file...

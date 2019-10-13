@@ -1,1 +1,0 @@
-/usr/bin/cc -g   CMakeFiles/assignment4.dir/Briyani.c.o  -o assignment4 -pthread 
