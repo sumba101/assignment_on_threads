@@ -57,27 +57,27 @@ include CMakeFiles/assignment4.dir/progress.make
 # Include the compile flags for this target's objects.
 include CMakeFiles/assignment4.dir/flags.make
 
-CMakeFiles/assignment4.dir/ober_withtime.c.o: CMakeFiles/assignment4.dir/flags.make
-CMakeFiles/assignment4.dir/ober_withtime.c.o: ../ober_withtime.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/spawnfire/OS/assignment4/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building C object CMakeFiles/assignment4.dir/ober_withtime.c.o"
-	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/assignment4.dir/ober_withtime.c.o   -c /home/spawnfire/OS/assignment4/ober_withtime.c
+CMakeFiles/assignment4.dir/Briyani.c.o: CMakeFiles/assignment4.dir/flags.make
+CMakeFiles/assignment4.dir/Briyani.c.o: ../Briyani.c
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/spawnfire/OS/assignment4/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building C object CMakeFiles/assignment4.dir/Briyani.c.o"
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/assignment4.dir/Briyani.c.o   -c /home/spawnfire/OS/assignment4/Briyani.c
 
-CMakeFiles/assignment4.dir/ober_withtime.c.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/assignment4.dir/ober_withtime.c.i"
-	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /home/spawnfire/OS/assignment4/ober_withtime.c > CMakeFiles/assignment4.dir/ober_withtime.c.i
+CMakeFiles/assignment4.dir/Briyani.c.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/assignment4.dir/Briyani.c.i"
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /home/spawnfire/OS/assignment4/Briyani.c > CMakeFiles/assignment4.dir/Briyani.c.i
 
-CMakeFiles/assignment4.dir/ober_withtime.c.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/assignment4.dir/ober_withtime.c.s"
-	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/spawnfire/OS/assignment4/ober_withtime.c -o CMakeFiles/assignment4.dir/ober_withtime.c.s
+CMakeFiles/assignment4.dir/Briyani.c.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/assignment4.dir/Briyani.c.s"
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/spawnfire/OS/assignment4/Briyani.c -o CMakeFiles/assignment4.dir/Briyani.c.s
 
 # Object files for target assignment4
 assignment4_OBJECTS = \
-"CMakeFiles/assignment4.dir/ober_withtime.c.o"
+"CMakeFiles/assignment4.dir/Briyani.c.o"
 
 # External object files for target assignment4
 assignment4_EXTERNAL_OBJECTS =
 
-assignment4: CMakeFiles/assignment4.dir/ober_withtime.c.o
+assignment4: CMakeFiles/assignment4.dir/Briyani.c.o
 assignment4: CMakeFiles/assignment4.dir/build.make
 assignment4: CMakeFiles/assignment4.dir/link.txt
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/spawnfire/OS/assignment4/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Linking C executable assignment4"

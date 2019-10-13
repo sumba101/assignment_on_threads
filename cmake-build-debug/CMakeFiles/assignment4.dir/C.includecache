@@ -6,15 +6,15 @@
 
 #IncludeRegexTransform: 
 
-/home/spawnfire/OS/assignment4/ober_withtime.c
-semaphore.h
--
+/home/spawnfire/OS/assignment4/biryani_by_tanvi.c
 stdio.h
 -
-unistd.h
--
-stdbool.h
+string.h
 -
 pthread.h
+-
+stdlib.h
+-
+unistd.h
 -
 

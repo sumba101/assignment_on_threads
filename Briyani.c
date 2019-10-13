@@ -1,131 +1,172 @@
 #include <stdio.h>
-#include <unistd.h>
+#include <string.h>
 #include <pthread.h>
 #include <stdlib.h>
-#include <stdbool.h>
+#include <unistd.h>
 
-int robots_no,stud_no,tables_no;
+int M, N, K, loaded[1000], slots[1000];
+pthread_t chef_id[1000], student_id[1000], table_id[1000];
+pthread_mutex_t chef_table_lock[1000], table_lock[1000];
 
-typedef struct Table{
-    pthread_mutex_t lock;
-    bool locked;
-    bool briyani_over;
-    pthread_t table_thread_id;
-    pthread_cond_t cond_id;
-    int slots;
-    int  briyani_amt;
-    bool briyani_container;
-}table;
-
-typedef struct Chef{
-    pthread_t chef_thread_id;
-    pthread_mutex_t lock;
-    pthread_cond_t cond_lock;
-
-    int vessels;
-    int people;
-
-}chef;
-
-typedef struct Student{
-    pthread_t stud_thread_id;
-}student;
-
-student s[1000];
-table t[1000];
-chef c[1000];
-
-void wait_for_slot();
-
-void student_in_slot();
-
-void* chef_create(void *arg);
-
-void briyani_ready();
-
-void table_init();
-
-void *student_func(void * arg);
-
-int main(){
-    scanf("Enter number of students, tables and robot chefs %d %d %d",&stud_no,&tables_no,&robots_no);
-
-    for (int j = 0; j < tables_no; ++j) {
-        pthread_mutex_init(&(t[j].lock), NULL);
-        pthread_mutex_lock(&t[j].lock);
-        pthread_cond_init(&t[j].cond_id,NULL);
-    } ///set all tables to locked state in the beginning
-
-    for (int m = 0; m < robots_no; ++m) {
-        pthread_cond_init(&c[m].cond_lock,NULL);
-        pthread_mutex_init(&c[m].lock,NULL);
-    }
-
-    for (int i = 0; i < robots_no; ++i) { ///interating through chefs
-        pthread_create(&c[i].chef_thread_id,NULL,chef_create,&c[i]);
-
-    }
-
-    for (int i1 = 0; i1 < stud_no; ++i1) {
-        pthread_create(&s[i1].stud_thread_id,NULL,student_func,&s[i1]);
-    }
-
-    for (int l = 0; l < stud_no; ++l) { ///join i.e wait for all students to be over
-        pthread_join(s[l].stud_thread_id,0);
-    }
-
-    for (int k = 0; k < tables_no; ++k) {
-        pthread_mutex_destroy(&t[k].lock);
-
-    }
-    printf("Students have been fed");
-    return 0;
+int min(int x, int y)
+{
+    return x < y ? x : y;
 }
 
-void *student_func(void * arg) {
-
-}
-
-
-void student_in_slot() {
-
-}
-
-void wait_for_slot() {
-    for (int i = 0; i < tables_no ; ++i) {
-        if(t[i]){ ///if slot is available
-            --t[i];
-            return; ///student has been alloted a slot
+void biryani_ready(int index, int w, int r, int p)
+{
+    for(int i = 0;i<r;i++)
+    {
+        int served = 0;
+        for(int j = 0;j<N;j++)
+        {
+            if(!pthread_mutex_trylock(&chef_table_lock[j]))
+            {
+                served = 1;
+                printf("Vessel %d by chef %d is served in table %d\n", i+1, index+1, j+1);
+                fflush(stdout);
+                loaded[j] = p;
+                break;
+            }
         }
+        i-=1-served;
     }
-    ///no slots available
-
 }
 
-void * chef_create(void *arg) {
-    chef *current=(chef * )arg;
-    while(stud_no){///stops making briyani if number of students left to feed hits 0
+void *chef(void *index)
+{
+    int *temp=((int*)index);
 
-        int time=(rand()%4)+2;///2-5 secs
-        int vessels=(rand()%10)+1;///1-10
-        int p=(rand()%26)+25;///25-50
-
-        printf("Preparing %d vessels, each can feed %d people",vessels,p);
-        current->people=p;
-        current->vessels=vessels;
-        sleep(time); ///sleep for time to prepare stuff
-        briyani_ready(current);
+    int in = *temp;
+    while(1)
+    {
+        int w = rand()%4+2, r = rand()%10+1, p = rand()%4+2;
+        printf("Chef %d will now take %d seconds to prepare %d vessel(s) each with portions for %d student(s)\n", in+1, w, r, p);
+        fflush(stdout);
+        sleep(w);
+        biryani_ready(in, w, r, p);
+        return NULL;
     }
+
     return NULL;
 }
 
-void briyani_ready(void *arg) {
-    ///table has been initialized with briyani amount
-    chef *current=(chef*)arg;
-    for (int i = 0; i < current->vessels; ++i) {
-        pthread_mutex_lock(&current->lock);
-        pthread_cond_wait(&current->cond_lock);
-        pthread_mutex_unlock(&current->lock);
+void ready_to_serve(int index)
+{
+    pthread_mutex_unlock(&table_lock[index]);
+    while(slots[index]);
+    pthread_mutex_lock(&table_lock[index]);
+}
+
+void *serving_table(void *index)
+{
+    int *temp=((int*)index);
+    int in = (*temp);
+
+    while(1)
+    {
+        while(!loaded[in]);
+
+        slots[in] = min(rand()%10+1, loaded[in]);
+        printf("Serving table %d made %d slot(s) available\n", in+1, slots[in]);
+        fflush(stdout);
+
+        ready_to_serve(in);
+
+        loaded[in] -= slots[in];
+
+        if(!loaded[in])
+            pthread_mutex_unlock(&chef_table_lock[in]);
+        sleep(1);
+    }
+
+    return NULL;
+}
+
+void student_in_slot(int index, int table)
+{
+    printf("Student %d is having a meal at table %d\n", index+1, table+1);
+    sleep(2);
+    slots[table]--;
+}
+
+void wait_for_slot(int index)
+{
+    int served = 0;
+    printf("Student %d is waiting for a slot\n", index+1);
+    while(!served)
+    {
+        for(int i = 0;i<N;i++)
+        {
+            if(!pthread_mutex_trylock(&table_lock[i]))
+            {
+                student_in_slot(index, i);
+                served = 1;
+                pthread_mutex_unlock(&table_lock[i]);
+                break;
+            }
+        }
     }
 }
 
+void *student(void *index)
+{
+    int *temp=((int*)index);
+    int in = *temp;
+    wait_for_slot(in);
+
+    return NULL;
+}
+
+
+int main()
+{
+    srand(time(NULL));
+    printf("Number of chefs: ");
+    scanf("%d", &M);
+    printf("Number of serving tables: ");
+    scanf("%d", &N);
+    printf("Number of students: ");
+    scanf("%d", &K);
+    int chefin[1000], servein[1000], studentin[1000];
+    for(int i = 0;i<M;i++)
+    {
+        chefin[i] = i;
+        if(pthread_create(&(chef_id[i]), NULL, &chef, &chefin[i]))
+            printf("Something went wrong while creating thread for chef %d\n", i+1);
+        usleep(100);
+    }
+    for(int i = 0;i<N;i++)
+    {
+        servein[i] = i;
+        if(pthread_mutex_init(&chef_table_lock[i], NULL))
+        {
+            printf("Something went wrong\n");
+            return 0;
+        }
+        if(pthread_mutex_init(&table_lock[i], NULL))
+        {
+            printf("Something went wrong\n");
+            return 0;
+        }
+        pthread_mutex_lock(&table_lock[i]);
+        if(pthread_create(&(table_id[i]), NULL, &serving_table, &servein[i]))
+            printf("Something went wrong while creating thread for serving table %d\n", i+1);
+        usleep(100);
+    }
+    for(int i = 0;i<K;i++)
+    {
+        studentin[i] = i;
+        if(pthread_create(&(student_id[i]), NULL, &student, &studentin[i]))
+            printf("Something went wrong while creating thread for student %d\n", i+1);
+        usleep(100);
+    }
+
+    for(int i = 0;i<K;i++)
+        pthread_join(student_id[i], NULL);
+    for(int i = 0;i<N;i++)
+        pthread_mutex_destroy(&chef_table_lock[i]), pthread_mutex_destroy(&table_lock[i]);
+
+
+    return 0;
+}

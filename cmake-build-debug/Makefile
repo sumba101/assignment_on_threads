@@ -123,32 +123,32 @@ assignment4/fast:
 	$(MAKE) -f CMakeFiles/assignment4.dir/build.make CMakeFiles/assignment4.dir/build
 .PHONY : assignment4/fast
 
-ober_withtime.o: ober_withtime.c.o
+Briyani.o: Briyani.c.o
 
-.PHONY : ober_withtime.o
+.PHONY : Briyani.o
 
 # target to build an object file
-ober_withtime.c.o:
-	$(MAKE) -f CMakeFiles/assignment4.dir/build.make CMakeFiles/assignment4.dir/ober_withtime.c.o
-.PHONY : ober_withtime.c.o
+Briyani.c.o:
+	$(MAKE) -f CMakeFiles/assignment4.dir/build.make CMakeFiles/assignment4.dir/Briyani.c.o
+.PHONY : Briyani.c.o
 
-ober_withtime.i: ober_withtime.c.i
+Briyani.i: Briyani.c.i
 
-.PHONY : ober_withtime.i
+.PHONY : Briyani.i
 
 # target to preprocess a source file
-ober_withtime.c.i:
-	$(MAKE) -f CMakeFiles/assignment4.dir/build.make CMakeFiles/assignment4.dir/ober_withtime.c.i
-.PHONY : ober_withtime.c.i
+Briyani.c.i:
+	$(MAKE) -f CMakeFiles/assignment4.dir/build.make CMakeFiles/assignment4.dir/Briyani.c.i
+.PHONY : Briyani.c.i
 
-ober_withtime.s: ober_withtime.c.s
+Briyani.s: Briyani.c.s
 
-.PHONY : ober_withtime.s
+.PHONY : Briyani.s
 
 # target to generate assembly for a file
-ober_withtime.c.s:
-	$(MAKE) -f CMakeFiles/assignment4.dir/build.make CMakeFiles/assignment4.dir/ober_withtime.c.s
-.PHONY : ober_withtime.c.s
+Briyani.c.s:
+	$(MAKE) -f CMakeFiles/assignment4.dir/build.make CMakeFiles/assignment4.dir/Briyani.c.s
+.PHONY : Briyani.c.s
 
 # Help Target
 help:
@@ -159,9 +159,9 @@ help:
 	@echo "... rebuild_cache"
 	@echo "... assignment4"
 	@echo "... edit_cache"
-	@echo "... ober_withtime.o"
-	@echo "... ober_withtime.i"
-	@echo "... ober_withtime.s"
+	@echo "... Briyani.o"
+	@echo "... Briyani.i"
+	@echo "... Briyani.s"
 .PHONY : help
 
 

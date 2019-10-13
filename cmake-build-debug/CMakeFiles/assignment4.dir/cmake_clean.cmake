@@ -1,5 +1,5 @@
 file(REMOVE_RECURSE
-  "CMakeFiles/assignment4.dir/ober_withtime.c.o"
+  "CMakeFiles/assignment4.dir/Briyani.c.o"
   "assignment4"
   "assignment4.pdb"
 )
